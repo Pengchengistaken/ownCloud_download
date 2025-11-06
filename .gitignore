@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# 下载文件
+downloads/
+*.crdownload
+*.tmp
+*.part
+
+# 日志文件
+*.log
+owncloud_download.log
+
+# Chrome Driver
+chromedriver*
+*.exe
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 配置文件（如果包含敏感信息）
+# config.py  # 如果需要忽略配置文件，取消注释
+
+# 调试文件
+debug_*.html
+cookies.txt
+
