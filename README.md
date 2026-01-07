@@ -1,5 +1,7 @@
 # 云存储自动化下载工具 (ownCloud & SharePoint)
 
+> 🤖 **本项目由 AI 生成** - 使用 [Google Gemini CLI (Antigravity)](https://github.com/google-gemini/gemini-cli) 辅助开发
+
 一个基于 Selenium 的自动化工具，用于从 ownCloud 或 Microsoft SharePoint 共享文件夹中批量下载文件。支持递归遍历所有文件夹，自动创建本地目录结构，并具备断点续传、自动重试等功能。
 
 ## 功能特性
@@ -35,25 +37,69 @@ cd ownCloud_download
 pip install -r requirements.txt
 ```
 
-### 3. 配置参数
+### 3. 配置参数 (可选)
 
-编辑 `config.py` 文件，设置以下参数：
+如果您希望跳过交互模式，可以直接在 `config.py` 文件中预设参数：
 
-```python
-# ownCloud分享链接
-OWNCLOUD_URL = "你得到的分享链接"
+### 4. 运行程序 (交互模式)
 
-# 分享密码
-SHARE_PASSWORD = "你得到的分享密码"
-
-# 本地下载目录（相对于项目根目录）
-DOWNLOAD_DIR = "./downloads"
-```
-
-### 4. 运行程序
-
+**推荐方式 - 交互模式**:
 ```bash
 python download.py
+```
+
+程序会提示您输入：
+1. 分享链接 (自动检测 ownCloud 或 SharePoint)
+2. 下载目录 (默认 ./downloads)
+3. 分享密码 (仅 ownCloud 需要，SharePoint 匿名访问)
+
+**传统方式 - 直接运行模块**:
+```bash
+# ownCloud
+python main.py
+
+# SharePoint
+python sharepoint_download.py
+```
+
+## 使用方法
+
+### 交互模式 (推荐)
+
+1. 运行程序：
+   ```bash
+   python download.py
+   ```
+2. 按提示输入分享链接、下载目录等信息
+3. 程序会自动检测链接类型并启动相应的下载模块
+4. 观察下载进度和统计信息
+
+### 快速开始示例
+
+```
+$ python download.py
+============================================================
+云存储自动化下载工具
+支持: ownCloud | SharePoint
+============================================================
+
+请输入分享链接: https://[你的组织名]-my.sharepoint.com/:f:/g/...
+
+检测到来源类型: SHAREPOINT
+
+请输入下载目录 (默认: ./downloads): 
+下载目录: D:\projects\ownCloud_download\downloads
+
+============================================================
+配置信息:
+  来源: SHAREPOINT
+  链接: https://[你的组织名]-my.sharepoint.com/:f:/g/...
+  下载目录: D:\projects\ownCloud_download\downloads
+============================================================
+
+是否开始下载? (Y/n): y
+
+开始下载...
 ```
 
 ## 配置说明
@@ -88,22 +134,6 @@ SHAREPOINT_DOWNLOAD_DIR = "./downloads"
 | `MAX_FULL_CYCLES` | 最大完整循环次数 | `10` |
 | `CYCLE_WAIT_TIME` | 每轮循环之间的等待时间（秒） | `60` |
 
-## 使用方法
-
-### 基本使用
-
-1. 确保已正确配置 `config.py` 中的 `OWNCLOUD_URL` 和 `SHARE_PASSWORD`
-2. 运行程序：
-   ```bash
-   python main.py
-   ```
-3. 程序会自动：
-   - 打开 Chrome 浏览器
-   - 登录 ownCloud
-   - 扫描所有文件夹
-   - 下载缺失的文件
-   - 自动重试失败的文件
-   - 循环执行直到所有文件下载完成
 
 ### 工作流程
 
