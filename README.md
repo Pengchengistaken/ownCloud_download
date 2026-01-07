@@ -1,6 +1,6 @@
-# ownCloud 自动化下载工具
+# 云存储自动化下载工具 (ownCloud & SharePoint)
 
-一个基于 Selenium 的自动化工具，用于从 ownCloud 共享文件夹中批量下载文件。支持递归遍历所有文件夹，自动创建本地目录结构，并具备断点续传、自动重试等功能。
+一个基于 Selenium 的自动化工具，用于从 ownCloud 或 Microsoft SharePoint 共享文件夹中批量下载文件。支持递归遍历所有文件夹，自动创建本地目录结构，并具备断点续传、自动重试等功能。
 
 ## 功能特性
 
@@ -53,11 +53,27 @@ DOWNLOAD_DIR = "./downloads"
 ### 4. 运行程序
 
 ```bash
-python main.py
+python download.py
 ```
 
 ## 配置说明
 
+### ownCloud 配置
+编辑 `config.py` 中的以下部分：
+```python
+OWNCLOUD_URL = "你的分享链接"
+SHARE_PASSWORD = "分享密码"
+DOWNLOAD_DIR = "./downloads"
+```
+
+### SharePoint 配置
+编辑 `config.py` 中的以下部分：
+```python
+SHAREPOINT_URL = "你的SharePoint分享链接"
+SHAREPOINT_DOWNLOAD_DIR = "./downloads"
+```
+
+### 通用调节参数
 在 `config.py` 中可以调整以下参数：
 
 | 参数 | 说明 | 默认值 |
@@ -93,25 +109,26 @@ python main.py
 
 程序执行流程如下：
 
-1. **初始化**：启动 ChromeDriver，配置下载路径
-2. **登录**：使用分享链接和密码登录 ownCloud
+1. **初始化**：检测下载源（ownCloud 或 SharePoint），启动 ChromeDriver
+2. **访问/登录**：
+   - **ownCloud**: 使用分享链接和密码登录
+   - **SharePoint**: 直接访问匿名分享链接
 3. **扫描下载**：
    - 递归遍历所有文件夹
    - 检查文件是否已存在本地
    - 下载缺失的文件
-   - 自动重试失败的文件
+   - 自动监控下载进度并移动到对应目录
 4. **循环执行**：
    - 如果还有失败的文件，等待后重新扫描
-   - 最多执行 10 轮完整流程
-   - 每轮之间自动重新登录保持会话
-5. **生成报告**：生成 `download_failures.txt` 记录最终失败的文件
+5. **生成报告**：生成日志文件记录最终状态
 
 ### 日志文件
 
 程序运行时会生成以下文件：
 
-- `owncloud_download.log`：详细的运行日志
-- `download_failures.txt`：最终下载失败的文件列表（如果有）
+- `owncloud_download.log`：ownCloud 模块日志
+- `sharepoint_download.log`：SharePoint 模块日志
+- `download_failures.txt`：最终下载失败的文件列表（仅限 ownCloud 模块，SharePoint 模块主要记录在日志中）
 
 ## 注意事项
 

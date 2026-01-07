@@ -29,3 +29,21 @@ MAX_FULL_CYCLES = 10
 # 每轮循环之间的等待时间（秒）
 CYCLE_WAIT_TIME = 60
 
+
+# =======================
+# SharePoint 配置
+# =======================
+
+# SharePoint 分享链接
+SHAREPOINT_URL = "你的SharePoint分享链接"
+
+# 本地下载目录（可以和ownCloud共用，也可以单独设置）
+SHAREPOINT_DOWNLOAD_DIR = "./downloads"
+
+# SharePoint 特定配置
+SHAREPOINT_PAGE_LOAD_TIMEOUT = 60  # 页面加载超时（秒）
+SHAREPOINT_DOWNLOAD_TIMEOUT = 3600  # 单文件下载超时（秒）
+SHAREPOINT_MAX_RETRIES = 10  # 单文件最大重试次数
+SHAREPOINT_RETRY_WAIT_TIME = 30  # 重试等待时间（秒）
+SHAREPOINT_MAX_FULL_CYCLES = 10  # 最大完整循环次数
+SHAREPOINT_CYCLE_WAIT_TIME = 60  # 循环间等待时间（秒）
